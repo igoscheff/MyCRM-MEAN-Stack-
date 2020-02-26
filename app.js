@@ -1,23 +1,29 @@
 const express = require('express'),
-    //Config
+      //Config
       keys = require('./config/keys'),
-    //Mongoose - MongoDB
+      //Mongoose - MongoDB
       mongoose = require('mongoose'),
-    //Parser JSON
+      //Passport
+      passport = require('passport'),
+      //Parser JSON
       bodyParser = require('body-parser'),
-    //Routes
+      //Routes
       analyticsRoutes = require('./routes/analytics'),
       authRoutes = require('./routes/auth'),
       categoryRoutes = require('./routes/category'),
       orderRoutes = require('./routes/order'),
       positionRoutes = require('./routes/position'),
-    //App
+      //App
       app = express();
 
-//
+//MongoDB connect
 mongoose.connect(keys.MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(error => console.log(error));
+
+//Passport use
+app.use(passport.initialize());
+require('./middieware/passport')(passport);
 
 //Parser use
 app.use(bodyParser.urlencoded({extended: true}));
