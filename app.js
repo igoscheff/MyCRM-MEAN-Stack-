@@ -33,6 +33,9 @@ app.use(bodyParser.json());
 app.use(require('morgan')('dev')); //Morgan - красивое логирование запросов
 app.use(require('cors')()); //Cors - обрвботка cors запросов (запросов с другого домена)
 
+//Static files use
+app.use('/uploads', express.static('uploads'));
+
 //Routes use
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/auth', authRoutes);
